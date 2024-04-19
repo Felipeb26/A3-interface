@@ -21,9 +21,11 @@ public class ConexaoDb {
 				try {
 					Properties props = loadProperties();
 					String url = props.getProperty("datasource.url");
-					conexao = DriverManager.getConnection(url, props);
+					conexao = DriverManager.getConnection(url, props.getProperty("username"), props.getProperty("password"));
 				} catch (SQLException e) {
-					Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, null, e);
+					Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+				}catch (Exception e){
+					Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 				}
 			}
 			return conexao;

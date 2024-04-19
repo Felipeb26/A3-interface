@@ -1,9 +1,6 @@
 package com.view;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.utils.Change;
 import java.awt.Font;
@@ -24,7 +21,7 @@ public class Index {
 	public Index() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 701, 550);frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 
@@ -55,7 +52,8 @@ public class Index {
 
 		buttonLogin.setBounds(117, 395, 113, 23);
 		frame.getContentPane().add(buttonLogin);
-		
+
+		Change.controllCloseFrame(frame, true);
 		Change.ScreenMain(buttonLogin, frame, inputUsuario, inputSenha);
 		Change.ScreenAbout(btnAbout, frame);
 		Change.ScreenAddUser(btnCadastro, frame);

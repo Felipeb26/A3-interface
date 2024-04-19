@@ -2,10 +2,7 @@ package com.view;
 
 import java.awt.Font;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.utils.Change;
 
@@ -17,10 +14,11 @@ public class About{
 	public About() {
 		frame.setBounds(100, 100, 701, 550);
 		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
-		
+		frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		Change.controllCloseFrame(frame, false);
+
 		JLabel lblNewLabel = new JLabel("o contr\u00E1rio do que se acredita, Lorem Ipsum\n n\u00E3o \u00E9 simplesmente um texto rand\u00F4mico."
 				+ " \nCom mais de 2000 anos, suas ra\u00EDzes podem ser encontradas em uma obra de literatura latina cl\u00E1ssica datada de 45 AC.\n"
 				+ " Richard McClintock, um professor de latim do Hampden-Sydney College na Virginia, pesquisou uma das mais obscuras palavras em latim,\n"

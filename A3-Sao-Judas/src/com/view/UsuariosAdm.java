@@ -8,17 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import com.service.CarrinhoService;
@@ -36,9 +27,8 @@ public class UsuariosAdm {
 	JButton btnLogin = new JButton("LOGIN");
 	JButton btnDelete;
 
-	@SuppressWarnings("serial")
 	public UsuariosAdm() {
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Change.controllCloseFrame(frame, false);
 		frame.setSize(700, 700);
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
@@ -123,26 +113,24 @@ public class UsuariosAdm {
 		textField.setBounds(150, 31, 320, 40);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
-		model.findAlllUsers().forEach(datas -> {
+		model.findAlllUsers().forEach(it -> {
 			DefaultTableModel table = (DefaultTableModel) tableEvento.getModel();
-			Object[] data = { datas.getNome(), datas.getEmail(), datas.getEndereco(), datas.getIdade(), datas.getAdm(),
-					datas.getSenha() };
+			Object[] data = { it.getNome(), it.getEmail(), it.getEndereco(), it.getIdade(), it.getAdm(),
+					it.getSenha() };
 			table.addRow(data);
 		});
 		Retornar();
 	}
 
 	public void Retornar() {
-		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					frame.dispose();
-					new Eventos();
-				} catch (Exception ex) {
-					System.out.println(ex.getMessage());
-				}
-			}
-		});
+		btnSair.addActionListener(e -> {
+            try {
+                frame.dispose();
+                new Eventos();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
 	}
 
 	public void UpdateUser() {
@@ -152,7 +140,7 @@ public class UsuariosAdm {
 				String email = tableEvento.getValueAt(tableEvento.getSelectedRow(), 1).toString();
 				String ende = tableEvento.getValueAt(tableEvento.getSelectedRow(), 2).toString();
 				String idade = tableEvento.getValueAt(tableEvento.getSelectedRow(), 3).toString();
-				String adm = tableEvento.getValueAt(tableEvento.getSelectedRow(), 4).toString();
+				Boolean adm = (Boolean) tableEvento.getValueAt(tableEvento.getSelectedRow(), 4);
 				String senha = tableEvento.getValueAt(tableEvento.getSelectedRow(), 5).toString();
 				model.updateUser(nome, email, ende, idade, adm, senha, email);
 				JOptionPane.showMessageDialog(null, "alterado com sucesso");

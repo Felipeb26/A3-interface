@@ -17,5 +17,5 @@ public class UsuarioModel {
 	private String email;
 	private String endereco;
 	private String senha;
-	private String adm;
+	private Boolean adm;
 }

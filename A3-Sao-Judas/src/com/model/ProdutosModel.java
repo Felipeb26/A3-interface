@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
+
 @Data
 @SuperBuilder
 @AllArgsConstructor
@@ -15,5 +17,5 @@ public class ProdutosModel {
 	private String idUsuario;
 	private String nome;
 	private String descricao;
-	private String valor;
+	private BigDecimal valor;
 }

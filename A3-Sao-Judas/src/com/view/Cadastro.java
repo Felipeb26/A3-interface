@@ -39,8 +39,9 @@ public class Cadastro {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 701, 550);
 		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		Change.controllCloseFrame(frame, false);
+
 
 		inputEmail = new JTextField();
 		inputEmail.setBounds(502, 225, 150, 30);
