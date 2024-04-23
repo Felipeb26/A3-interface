@@ -15,8 +15,7 @@ import com.batsworks.interfaces.service.UsuarioService;
 import com.batsworks.interfaces.utils.Change;
 
 
-public class Eventos {
-	JFrame frame = new JFrame();
+public class Eventos extends JFrame {
 	private JTable tableEvento;
 	private JTextField textField;
 	
@@ -27,17 +26,16 @@ public class Eventos {
 	
 	@SuppressWarnings("serial")
 	public Eventos() {
-		Change screen = new Change();
-		Change.controllCloseFrame(frame, false);
-		frame.setSize(700, 700);
-		frame.setResizable(false);
-		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
+		Change.controllCloseFrame(this, false);
+		setSize(700, 700);
+		setResizable(false);
+		getContentPane().setLayout(null);
+		setVisible(true);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
 		panel.setBounds(0, 0, 100, 674);
-		frame.getContentPane().add(panel);
+		getContentPane().add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JLabel lblNewLabel_1 = new JLabel("");
@@ -66,12 +64,12 @@ public class Eventos {
 		btnSair.setPreferredSize(new Dimension(90, 100));
 		panel.add(btnSair);
 
-		Change.ScreenIndex(btnSair, frame);
-		Change.ScreenLogin(btnLogin, frame);
+		Change.toFrame(btnSair, this, Index.class);
+		Change.toFrame(btnLogin, this, Usuarios.class);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(120, 169, 554, 409);
-		frame.getContentPane().add(scrollPane);
+		getContentPane().add(scrollPane);
 		
 		tableEvento = new JTable();
 		tableEvento.setDragEnabled(true);
@@ -83,7 +81,7 @@ public class Eventos {
 				"NOME", "descricao ", "valor"
 			}
 		) {
-			boolean[] columnEditables = new boolean[] {
+			final boolean[] columnEditables = new boolean[] {
 				false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
@@ -100,13 +98,13 @@ public class Eventos {
 		
 		textField = new JTextField();
 		textField.setBounds(150, 31, 320, 40);
-		frame.getContentPane().add(textField);
+		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		carrinho.setBounds(564, 40, 89, 23);
-		frame.getContentPane().add(carrinho);
+		getContentPane().add(carrinho);
 		
-		screen.ScreenCarrinho(carrinho, frame);		
+		Change.toFrame(carrinho, this, Carrinho.class);
 	}
 	
 	public void Produtos() {

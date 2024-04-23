@@ -10,12 +10,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import com.batsworks.interfaces.model.UsuarioModel;
+import com.batsworks.interfaces.model.UsuariosModel;
 import com.batsworks.interfaces.service.UsuarioService;
 import com.batsworks.interfaces.utils.Change;
 
-public class Usuarios {
-    UsuarioModel model = new UsuarioModel();
+public class Usuarios extends JFrame{
+    UsuariosModel model = new UsuariosModel();
 
     JFrame frame = new JFrame();
     JButton carrinho = new JButton("Carrinho icon");

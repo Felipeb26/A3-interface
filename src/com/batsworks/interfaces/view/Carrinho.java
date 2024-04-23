@@ -16,9 +16,8 @@ import com.batsworks.interfaces.service.CarrinhoService;
 import com.batsworks.interfaces.service.UsuarioService;
 import com.batsworks.interfaces.utils.Change;
 
-public class Carrinho {
+public class Carrinho extends JFrame{
 
-	JFrame frame = new JFrame();
 	JTable tableEvento;
 	JButton btnEventos = new JButton("VOLTAR");
 	TableColumn pesoa;
@@ -33,17 +32,17 @@ public class Carrinho {
 
 	@SuppressWarnings("serial")
 	public Carrinho() {
-		Change.controllCloseFrame(frame, false);
-		frame.setSize(700, 700);
-		frame.setResizable(false);
-		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
+		Change.controllCloseFrame(this, false);
+		setSize(700, 700);
+		setResizable(false);
+		getContentPane().setLayout(null);
+		setVisible(true);
 
 		btnEventos.setBounds(28, 603, 89, 23);
-		frame.getContentPane().add(btnEventos);
+		getContentPane().add(btnEventos);
 		scrollPane_1.setBounds(0, 201, 684, 391);
 
-		frame.getContentPane().add(scrollPane_1);
+		getContentPane().add(scrollPane_1);
 
 		tableEvento = new JTable();
 		tableEvento.setDragEnabled(true);
@@ -75,7 +74,7 @@ public class Carrinho {
 	public void Retornar() {
 		btnEventos.addActionListener(e -> {
 			try {
-				frame.dispose();
+				dispose();
 				new Eventos();
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());

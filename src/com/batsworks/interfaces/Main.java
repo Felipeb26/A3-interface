@@ -16,7 +16,8 @@ public class Main {
             }
             new Index();
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            System.exit(0);
         }
     }
 
