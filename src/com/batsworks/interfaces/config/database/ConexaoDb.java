@@ -47,6 +47,15 @@ public class ConexaoDb {
             Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+    public static void desconecta(PreparedStatement stm, ResultSet rs) {
+        try {
+            closeStatement(stm);
+            closeResultSet(rs);
+            conexao.close();
+        } catch (SQLException e) {
+            Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 
     public static void closeStatement(Statement stm) {
         if (stm != null) {

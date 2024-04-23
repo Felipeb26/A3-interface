@@ -13,9 +13,7 @@ import java.util.function.Function;
 
 public final class CustomRepository<T> implements Repository<T, Long>, Serializable {
 
-    private static Connection connection = ConexaoDb.conecta();
-    private static PreparedStatement pst;
-    private static ResultSet rs;
+    private static final Connection connection = ConexaoDb.conecta();
     private static String dbEntity;
 
     Function<ResultSet, T> rowMapper;
@@ -37,11 +35,12 @@ public final class CustomRepository<T> implements Repository<T, Long>, Serializa
     @Override
     public List<T> findAll() throws SQLException {
         List<T> ts = new ArrayList<>();
-        pst = connection.prepareStatement(String.format("select * from %s", dbEntity));
-        rs = pst.executeQuery();
+        PreparedStatement pst = connection.prepareStatement(String.format("select * from %s", dbEntity));
+        ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             ts.add(rowMapper.apply(rs));
         }
+        ConexaoDb.desconecta(pst, rs);
         return ts;
     }
 
