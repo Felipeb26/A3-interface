@@ -1,91 +1,89 @@
 package com.batsworks.interfaces.view;
 
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-
 import com.batsworks.interfaces.config.database.CustomRepository;
 import com.batsworks.interfaces.model.UsuariosModel;
 import com.batsworks.interfaces.utils.Change;
 import com.batsworks.interfaces.utils.DefaultInputStyle;
 
+import javax.swing.*;
+
 public class Index extends JFrame {
 
-	CustomRepository<UsuariosModel> repository;
-	JTextField inputSenha;
-	JTextField inputEmail;
-	JButton buttonLogin;
-	JButton btnAbout;
-	JLabel lblUsuario;
-	JLabel lblSenha;
-	JButton btnEsqueciSenha;
-	JButton btnCadastro;
+    CustomRepository<UsuariosModel> repository;
+    JTextField inputSenha;
+    JTextField inputEmail;
+    JButton btnAbout;
+    JLabel lblUsuario;
+    JLabel lblSenha;
+    JButton btnEsqueciSenha;
+    JButton btnCadastro;
+    JButton btnLogin;
 
-	public Index() {
-		repository = new CustomRepository<>(UsuariosModel.class, UsuariosModel::rowMapper);
-		setBounds(100, 100, 701, 550);
+    public Index() {
+        repository = new CustomRepository<>(UsuariosModel.class, UsuariosModel::rowMapper);
+        setBounds(100, 100, 700, 550);
+        components();
+        setResizable(false);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        Change.toFrame(btnAbout, this, About.class);
+        Change.toFrame(btnCadastro, this, Cadastro.class);
+    }
 
-		components().parallelStream().forEach(this::add);
-		setResizable(false);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setVisible(true);
-		Change.homeScreen(buttonLogin, this::executeLogin);
-		Change.toFrame(btnAbout, this, About.class);
-		Change.toFrame(btnCadastro, this, Cadastro.class);
-	}
+    private void components() {
+        inputSenha = new JTextField("senha");
+        inputEmail = new JTextField("email");
+        btnAbout = new JButton("about");
+        lblUsuario = new JLabel("USUARIO");
+        lblSenha = new JLabel("SENHA");
+        btnEsqueciSenha = new JButton("esqueci a senha");
+        btnCadastro = new JButton("CADASTRAR");
+        getContentPane().setLayout(null);
 
-	private List<? extends JComponent> components() {
-		inputSenha = new JTextField("senha");
-		inputEmail = new JTextField("email");
-		buttonLogin = new JButton("ENTRAR");
-		btnAbout = new JButton("about");
-		lblUsuario = new JLabel("USUARIO");
-		lblSenha = new JLabel("SENHA");
-		btnEsqueciSenha = new JButton("esqueci a senha");
-		btnCadastro = new JButton("CADASTRAR");
+        lblUsuario.setBounds(107, 281, 81, 25);
+        getContentPane().add(lblUsuario);
+        lblSenha.setBounds(107, 333, 81, 50);
+        getContentPane().add(lblSenha);
+        inputEmail.setBounds(107, 302, 179, 30);
+        getContentPane().add(inputEmail);
+        inputSenha.setBounds(107, 358, 179, 30);
+        getContentPane().add(inputSenha);
 
-		lblUsuario.setBounds(107, 281, 81, 25);
-		lblSenha.setBounds(107, 333, 81, 50);
+        btnAbout.setBounds(593, 11, 69, 23);
+        getContentPane().add(btnAbout);
+        btnEsqueciSenha.setBounds(75, 423, 113, 25);
+        getContentPane().add(btnEsqueciSenha);
+        btnCadastro.setBounds(192, 423, 113, 25);
+        getContentPane().add(btnCadastro);
 
-		btnAbout.setBounds(593, 11, 69, 23);
-		btnEsqueciSenha.setBounds(107, 459, 137, 25);
-		btnCadastro.setBounds(117, 422, 113, 25);
-		buttonLogin.setBounds(117, 395, 113, 23);
+        btnLogin = new JButton("login".toUpperCase());
+        btnLogin.setBounds(148, 394, 89, 23);
+        btnLogin.addActionListener(a -> executeLogin());
+        getContentPane().add(btnLogin);
 
-		
-		
-		DefaultInputStyle.textFieldBound(inputEmail, 92, 301);
-		DefaultInputStyle.textFieldBound(inputSenha, 92, 358);
-		DefaultInputStyle.textField(inputSenha, inputEmail);
-		return List.of(inputSenha, inputEmail, buttonLogin, btnAbout, lblUsuario, lblSenha, btnEsqueciSenha, btnCadastro);
-	}
+        DefaultInputStyle.textField(inputSenha, inputEmail);
+    }
 
-	public Void executeLogin(Void unused) {
-		try {
-			String email = "select * from usuarios where email like '".concat(inputEmail.getText());
-			var usuario = repository.custom(email.concat("%' and senha='").concat(inputSenha.getText()).concat("'"));
-			if (usuario == null) {
-				JOptionPane.showMessageDialog(null,
-						"usuario nao existe ou não encontrado\n verificar senha e email informados!");
-				return null;
-			}
-			if (Boolean.TRUE.equals(usuario.getAdm())) {
-				Change.toFrame(btnAbout, this, UsuariosAdm.class);
-			} else if (Boolean.FALSE.equals(usuario.getAdm())) {
-				dispose();
-				new Eventos();
-			}
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null,
-					"usuario nao existe ou não encontrado\n verificar senha e email informados!");
-		}
-		return null;
-	}
+    public void executeLogin() {
+        try {
+            String email = "select * from usuarios where email like '".concat(inputEmail.getText());
+            var usuario = repository.custom(email.concat("%' and senha='").concat(inputSenha.getText()).concat("'"));
+            if (usuario == null) {
+                JOptionPane.showMessageDialog(null,
+                        "usuario nao existe ou não encontrado\n verificar senha e email informados!");
+                return;
+            }
+            if (Boolean.TRUE.equals(usuario.getAdm())) {
+                Change.toFrame(btnAbout, this, UsuariosAdm.class);
+            } else if (Boolean.FALSE.equals(usuario.getAdm())) {
+                dispose();
+                new Eventos();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,
+                    "usuario nao existe ou não encontrado\n verificar senha e email informados!");
+        }
+        return;
+    }
 }

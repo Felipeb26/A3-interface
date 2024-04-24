@@ -23,10 +23,11 @@ public class Cadastro extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         Change.controllCloseFrame(this, false);
+        getContentPane().setLayout(null);
 
 
         inputEmail = new JTextField();
-        inputEmail.setBounds(502, 225, 150, 30);
+        inputEmail.setBounds(387, 218, 165, 30);
         getContentPane().add(inputEmail);
         inputEmail.setColumns(10);
 
@@ -45,7 +46,7 @@ public class Cadastro extends JFrame {
         getContentPane().add(lblNome);
 
         JLabel lblEmail = new JLabel("EMAIL");
-        lblEmail.setBounds(544, 200, 46, 14);
+        lblEmail.setBounds(397, 193, 46, 14);
         getContentPane().add(lblEmail);
 
         JLabel lblSenha = new JLabel("SENHA");
@@ -63,11 +64,6 @@ public class Cadastro extends JFrame {
 
         Change.toFrame(btnCancel, this, Index.class);
 
-        JLabel lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\felip\\Pictures\\kali.png"));
-        lblNewLabel.setBounds(43, 96, 369, 346);
-        getContentPane().add(lblNewLabel);
-
         inputIdade = new JTextField();
         inputIdade.setBounds(580, 145, 72, 30);
         getContentPane().add(inputIdade);
@@ -78,14 +74,14 @@ public class Cadastro extends JFrame {
         getContentPane().add(lblIdade);
 
         inputEndereco = new JTextField();
-        inputEndereco.setBounds(502, 297, 150, 30);
+        inputEndereco.setBounds(388, 278, 264, 28);
         getContentPane().add(inputEndereco);
         inputEndereco.setColumns(10);
-
-        JLabel lblEndereco = new JLabel("ENDERECO");
-        lblEndereco.setBounds(544, 272, 72, 14);
-        getContentPane().add(lblEndereco);
         cadastrar(btnCadastro);
+        
+        JLabel lblNewLabel = new JLabel("endereco");
+        lblNewLabel.setBounds(397, 259, 46, 14);
+        getContentPane().add(lblNewLabel);
     }
 
 

@@ -13,6 +13,7 @@ public class Main {
                 var lookName = look.getName().toLowerCase();
                 if (lookName.contains("gtk") || lookName.equals("nimbus"))
                     UIManager.setLookAndFeel(look.getClassName());
+                System.out.println(lookName);
             }
             new Index();
         } catch (Exception e) {

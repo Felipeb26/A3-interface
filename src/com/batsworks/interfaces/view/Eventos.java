@@ -109,12 +109,15 @@ public class Eventos extends JFrame {
 	}
 
 	public void produtos() {
-		produtos.carrinho().forEach(datas -> {
-			produtos.carrinho();
-			DefaultTableModel table = (DefaultTableModel) tableEvento.getModel();
-			Object[] data = { datas.getNome(), datas.getDescricao(), datas.getValor() };
-			table.addRow(data);
-		});
+		try{
+			repository.findAll().forEach(datas -> {
+				DefaultTableModel table = (DefaultTableModel) tableEvento.getModel();
+				Object[] data = { datas.getNome(), datas.getDescricao(), datas.getValor() };
+				table.addRow(data);
+			});
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }
