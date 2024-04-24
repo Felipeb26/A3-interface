@@ -7,29 +7,33 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.batsworks.interfaces.service.CarrinhoService;
-import com.batsworks.interfaces.service.UsuarioService;
+import com.batsworks.interfaces.config.database.CustomRepository;
+import com.batsworks.interfaces.model.ProdutosModel;
 import com.batsworks.interfaces.utils.Change;
 
-
 public class Eventos extends JFrame {
+	
+	CustomRepository<ProdutosModel> repository;
 	private JTable tableEvento;
 	private JTextField textField;
-	
-	UsuarioService model = new UsuarioService();
-	CarrinhoService produtos = new CarrinhoService();
 	JButton carrinho = new JButton("Carrinho icon");
 	JButton btnLogin = new JButton("LOGIN");
-	
+
 	@SuppressWarnings("serial")
 	public Eventos() {
 		Change.controllCloseFrame(this, false);
 		setSize(700, 700);
 		setResizable(false);
-		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		setVisible(true);
 
 		JPanel panel = new JPanel();
@@ -70,20 +74,13 @@ public class Eventos extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(120, 169, 554, 409);
 		getContentPane().add(scrollPane);
-		
+
 		tableEvento = new JTable();
 		tableEvento.setDragEnabled(true);
 		scrollPane.setViewportView(tableEvento);
-		tableEvento.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"NOME", "descricao ", "valor"
-			}
-		) {
-			final boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
+		tableEvento.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "NOME", "descricao ", "valor" }) {
+			final boolean[] columnEditables = new boolean[] { false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -94,26 +91,30 @@ public class Eventos extends JFrame {
 		tableEvento.setFillsViewportHeight(true);
 		tableEvento.setColumnSelectionAllowed(true);
 		tableEvento.setCellSelectionEnabled(true);
-		Produtos();
-		
+		produtos();
+
 		textField = new JTextField();
 		textField.setBounds(150, 31, 320, 40);
 		getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		carrinho.setBounds(564, 40, 89, 23);
 		getContentPane().add(carrinho);
-		
+
 		Change.toFrame(carrinho, this, Carrinho.class);
 	}
 	
-	public void Produtos() {
-		produtos.carrinho().forEach(datas ->{
+	private void initDb() {
+		repository = new CustomRepository(ProdutosModel.class, ProdutosModel::rowMapper);
+	}
+
+	public void produtos() {
+		produtos.carrinho().forEach(datas -> {
 			produtos.carrinho();
 			DefaultTableModel table = (DefaultTableModel) tableEvento.getModel();
-			Object[] data = {datas.getNome(), datas.getDescricao(), datas.getValor()};
+			Object[] data = { datas.getNome(), datas.getDescricao(), datas.getValor() };
 			table.addRow(data);
 		});
 	}
-	
+
 }

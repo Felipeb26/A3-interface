@@ -21,7 +21,7 @@ public class Cadastro extends JFrame {
 
         setBounds(100, 100, 701, 550);
         setResizable(false);
-        getContentPane().setLayout(null);
+        setLocationRelativeTo(null);
         Change.controllCloseFrame(this, false);
 
 

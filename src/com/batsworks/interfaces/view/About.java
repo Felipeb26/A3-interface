@@ -8,18 +8,19 @@ import javax.swing.*;
 public class About extends JFrame {
 
     JLabel aboutLabel;
-    JLabel lblAboutText;
+    JTextArea aboutTextArea;
     JButton btnSair;
 
     public About() {
         setBounds(100, 100, 701, 550);
         setResizable(false);
-        getContentPane().setLayout(null);
+        setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         Change.controllCloseFrame(this, false);
+        getContentPane().setLayout(null);
 
-        lblAboutText = new JLabel("o contr\u00E1rio do que se acredita, Lorem Ipsum\n n\u00E3o \u00E9 simplesmente um texto rand\u00F4mico."
+        aboutTextArea = new JTextArea("o contr\u00E1rio do que se acredita, Lorem Ipsum\n n\u00E3o \u00E9 simplesmente um texto rand\u00F4mico."
                 + " \nCom mais de 2000 anos, suas ra\u00EDzes podem ser encontradas em uma obra de literatura latina cl\u00E1ssica datada de 45 AC.\n"
                 + " Richard McClintock, um professor de latim do Hampden-Sydney College na Virginia, pesquisou uma das mais obscuras palavras em latim,\n"
                 + " consectetur, oriunda de uma passagem de Lorem Ipsum, e, procurando por entre cita\u00E7\u00F5es da palavra na literatura\n"
@@ -27,11 +28,12 @@ public class About extends JFrame {
                 + " do \"de Finibus Bonorum et Malorum\" (Os Extremos do Bem e do Mal), de C\u00EDcero, escrito em 45 AC.\n"
                 + " Este livro \u00E9 um tratado de teoria da \u00E9tica muito popular na \u00E9poca da Renascen\u00E7a.\n"
                 + " A primeira linha de Lorem Ipsum, \"Lorem Ipsum dolor sit amet...\" vem de uma linha na se\u00E7\u00E3o 1.10.32.");
-        lblAboutText.setHorizontalAlignment(SwingConstants.CENTER);
-        lblAboutText.setVerticalTextPosition(SwingConstants.TOP);
-        lblAboutText.setVerticalAlignment(SwingConstants.TOP);
-        lblAboutText.setBounds(145, 141, 338, 336);
-        getContentPane().add(lblAboutText);
+        aboutTextArea.setBounds(172, 71, 492, 336);
+        aboutTextArea.setLineWrap(true);
+        aboutTextArea.setBackground(getForeground());
+        aboutTextArea.setEditable(false);
+        aboutTextArea.setWrapStyleWord(true);
+        getContentPane().add(aboutTextArea);
 
         aboutLabel = new JLabel("ABOUT");
         aboutLabel.setFont(new FontStyle());
@@ -40,7 +42,7 @@ public class About extends JFrame {
         getContentPane().add(aboutLabel);
 
         btnSair = new JButton("SAIR");
-        btnSair.setBounds(10, 477, 89, 23);
+        btnSair.setBounds(26, 455, 81, 29);
         getContentPane().add(btnSair);
 
         Change.toFrame(btnSair, this, Index.class);

@@ -5,6 +5,7 @@ import com.batsworks.interfaces.config.styles.FontStyle;
 import javax.swing.*;
 
 public final class DefaultInputStyle {
+	
     DefaultInputStyle() {
         throw new IllegalStateException("Utility class");
     }

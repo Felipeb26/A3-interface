@@ -35,7 +35,7 @@ public class Carrinho extends JFrame{
 		Change.controllCloseFrame(this, false);
 		setSize(700, 700);
 		setResizable(false);
-		getContentPane().setLayout(null);
+        setLocationRelativeTo(null);
 		setVisible(true);
 
 		btnEventos.setBounds(28, 603, 89, 23);
