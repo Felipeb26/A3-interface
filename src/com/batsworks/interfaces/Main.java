@@ -17,7 +17,6 @@ public class Main {
             new Index();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            System.exit(0);
         }
     }
 

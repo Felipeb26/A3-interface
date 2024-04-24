@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public class UsuariosModel {
 
     private Long id;
-    private int idade;
     private String nome;
+    private int idade;
     private String email;
     private String endereco;
     private String senha;
@@ -28,6 +28,7 @@ public class UsuariosModel {
                     .idade(rs.getInt("idade")).email(rs.getString("email")).adm(rs.getBoolean("adm"))
                     .endereco(rs.getString("endereco")).senha(rs.getString("senha")).build();
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

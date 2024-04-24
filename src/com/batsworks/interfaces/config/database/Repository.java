@@ -12,7 +12,9 @@ public interface Repository<T, ID> {
 
     void add(T t) throws SQLException;
 
-    void delete(ID id) throws SQLException;
+    void update(T t, ID id) throws SQLException;
+
+    Boolean delete(ID id) throws SQLException;
 
     void flush() throws SQLException;
 }

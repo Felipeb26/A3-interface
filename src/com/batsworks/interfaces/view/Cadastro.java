@@ -3,13 +3,18 @@ package com.batsworks.interfaces.view;
 import com.batsworks.interfaces.config.database.CustomRepository;
 import com.batsworks.interfaces.model.UsuariosModel;
 import com.batsworks.interfaces.utils.Change;
+import com.batsworks.interfaces.utils.Validation;
 
 import javax.swing.*;
-import java.sql.SQLException;
 
 public class Cadastro extends JFrame {
 
     transient CustomRepository<UsuariosModel> repository;
+    JTextField inputIdade;
+    JTextField inputEmail;
+    JTextField inputNome;
+    JTextField inputEndereco;
+    JTextField inputSenha;
 
     public Cadastro() {
         startRepo();
@@ -20,17 +25,17 @@ public class Cadastro extends JFrame {
         Change.controllCloseFrame(this, false);
 
 
-        JTextField inputEmail = new JTextField();
+        inputEmail = new JTextField();
         inputEmail.setBounds(502, 225, 150, 30);
         getContentPane().add(inputEmail);
         inputEmail.setColumns(10);
 
-        JTextField inputNome = new JTextField();
+        inputNome = new JTextField();
         inputNome.setBounds(387, 145, 165, 30);
         getContentPane().add(inputNome);
         inputNome.setColumns(10);
 
-        JTextField inputSenha = new JTextField();
+        inputSenha = new JTextField();
         inputSenha.setBounds(502, 363, 150, 28);
         getContentPane().add(inputSenha);
         inputSenha.setColumns(10);
@@ -63,7 +68,7 @@ public class Cadastro extends JFrame {
         lblNewLabel.setBounds(43, 96, 369, 346);
         getContentPane().add(lblNewLabel);
 
-        JTextField inputIdade = new JTextField();
+        inputIdade = new JTextField();
         inputIdade.setBounds(580, 145, 72, 30);
         getContentPane().add(inputIdade);
         inputIdade.setColumns(10);
@@ -72,7 +77,7 @@ public class Cadastro extends JFrame {
         lblIdade.setBounds(603, 120, 46, 14);
         getContentPane().add(lblIdade);
 
-        JTextField inputEndereco = new JTextField();
+        inputEndereco = new JTextField();
         inputEndereco.setBounds(502, 297, 150, 30);
         getContentPane().add(inputEndereco);
         inputEndereco.setColumns(10);
@@ -80,43 +85,31 @@ public class Cadastro extends JFrame {
         JLabel lblEndereco = new JLabel("ENDERECO");
         lblEndereco.setBounds(544, 272, 72, 14);
         getContentPane().add(lblEndereco);
-        try {
-            cadastrar(btnCadastro);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        cadastrar(btnCadastro);
     }
+
 
     private void startRepo() {
         repository = new CustomRepository<>(UsuariosModel.class, UsuariosModel::rowMapper);
     }
 
-    public void cadastrar(JButton button) throws SQLException {
-        var list = repository.findAll();
+    public void cadastrar(JButton button) {
         button.addActionListener(e -> {
-//            try {
-//                String mail = inputEmail.getText();
-//                String nome = inputNome.getText();
-//                String senha = inputSenha.getText();
-//                String age = inputIdade.getText();
-//                String ende = inputEmail.getText();
-//                Validation.notNull(inputNome, inputSenha, inputEmail, inputIdade, inputEndereco);
-//                String sql = "insert into usuarios (nome, email, senha, idade, endereco) values"
-//                        + "(?, ?, ?, ?, ?)";
-//                pst = conn.prepareStatement(sql);
-//                pst.setString(1, nome);
-//                pst.setString(2, mail);
-//                pst.setString(3, senha);
-//                pst.setInt(4, Integer.parseInt(age));
-//                pst.setString(5, ende);
-//                pst.execute();
-//
-//                JOptionPane.showMessageDialog(null, "usuario " + nome + " cadastrado com sucesso!");
-//                Change.toFrame(button, this, Index.class);
-//            } catch (Exception ex) {
-//                JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o usuario: "
-//                        .concat(lblNome.getText()).concat(ex.getMessage()));
-//            }
+            try {
+                Validation.notNull(inputNome, inputSenha, inputEmail, inputIdade, inputEndereco);
+                repository.add(UsuariosModel.builder()
+                        .nome(inputNome.getText())
+                        .idade(Integer.parseInt(inputIdade.getText()))
+                        .email(inputEmail.getText())
+                        .endereco(inputEndereco.getText())
+                        .senha(inputSenha.getText())
+                        .adm(inputNome.getText().contains("felipe"))
+                        .build());
+                JOptionPane.showMessageDialog(null, "usuario " + inputNome.getText() + " cadastrado com sucesso!");
+                Change.toFrame(button, this, Index.class);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o usuario".concat(ex.getMessage()));
+            }
         });
     }
 }

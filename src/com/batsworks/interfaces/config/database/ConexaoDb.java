@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 
 public class ConexaoDb {
 
-    public static Connection conexao;
+    private static Connection conexao;
+    private static final String DB_CONFIG = System.getenv("DB_PROPERTIES");
 
     public static Connection conecta() {
         if (conexao == null) {
@@ -26,13 +27,14 @@ public class ConexaoDb {
             } catch (Exception e) {
                 Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                System.exit(0);
             }
         }
         return conexao;
     }
 
     private static Properties loadProperties() throws IOException {
-        try (FileInputStream fs = new FileInputStream("db.properties")) {
+        try (FileInputStream fs = new FileInputStream(DB_CONFIG)) {
             Properties props = new Properties();
             props.load(fs);
             return props;
@@ -40,13 +42,14 @@ public class ConexaoDb {
     }
 
 
-    public void desconecta() {
+    public static void desconecta() {
         try {
             conexao.close();
         } catch (SQLException e) {
             Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+
     public static void desconecta(PreparedStatement stm, ResultSet rs) {
         try {
             closeStatement(stm);
@@ -72,7 +75,7 @@ public class ConexaoDb {
             try {
                 rs.close();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }

@@ -1,12 +1,11 @@
 package com.batsworks.interfaces.utils;
 
-import com.batsworks.interfaces.service.UsuarioService;
-import com.batsworks.interfaces.view.Eventos;
 import com.batsworks.interfaces.view.Index;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.function.Function;
 
 public final class Change {
 
@@ -14,26 +13,12 @@ public final class Change {
         throw new IllegalStateException("Utility class");
     }
 
-    public static void homeScreen(JButton button, JFrame frame, JTextField user, JTextField pass) {
+    public static void homeScreen(JButton button, Function<Void, Void> function) {
         button.addActionListener(e -> {
-            UsuarioService service = new UsuarioService();
-            String email = user.getText();
-            String senha = pass.getText();
             try {
-                var usuario = service.findUserByLogin(email, senha);
-                if (usuario == null) {
-                    JOptionPane.showMessageDialog(null, "usuario nao existe ou não encontrado\n verificar senha e email informados!");
-                    return;
-                }
-                if (Boolean.TRUE.equals(usuario.getAdm())) {
-                    frame.dispose();
-                    new UsuarioService();
-                } else if (Boolean.FALSE.equals(usuario.getAdm())) {
-                    frame.dispose();
-                    new Eventos();
-                }
+                function.apply(null);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "usuario nao existe ou não encontrado\n verificar senha e email informados!");
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         });
     }
