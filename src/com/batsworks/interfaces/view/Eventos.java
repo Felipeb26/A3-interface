@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import com.batsworks.interfaces.config.database.CustomRepository;
 import com.batsworks.interfaces.model.ProdutosModel;
 import com.batsworks.interfaces.utils.Change;
+import java.awt.BorderLayout;
 
 public class Eventos extends JFrame {
 	
@@ -30,11 +31,13 @@ public class Eventos extends JFrame {
 
 	@SuppressWarnings("serial")
 	public Eventos() {
+		repository = new CustomRepository<>(ProdutosModel.class, ProdutosModel::rowMapper);
 		Change.controllCloseFrame(this, false);
 		setSize(700, 700);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -94,20 +97,17 @@ public class Eventos extends JFrame {
 		produtos();
 
 		textField = new JTextField();
-		textField.setBounds(150, 31, 320, 40);
+		textField.setBounds(136, 26, 354, 42);
 		getContentPane().add(textField);
 		textField.setColumns(10);
+		carrinho.setBackground(new Color(0, 64, 0));
 
-		carrinho.setBounds(564, 40, 89, 23);
+		carrinho.setBounds(582, 25, 79, 43);
 		getContentPane().add(carrinho);
 
 		Change.toFrame(carrinho, this, Carrinho.class);
 	}
 	
-	private void initDb() {
-		repository = new CustomRepository(ProdutosModel.class, ProdutosModel::rowMapper);
-	}
-
 	public void produtos() {
 		try{
 			repository.findAll().forEach(datas -> {

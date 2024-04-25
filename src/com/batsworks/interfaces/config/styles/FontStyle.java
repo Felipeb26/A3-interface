@@ -36,19 +36,4 @@ public class FontStyle extends Font {
         super(font);
     }
 
-    public static void main(String[] args) {
-        String filtro = "AND a.idFundo IN (1) AND a.idCedente in (621) AND a.idGerenteComercial = 16";
-        String[] filtros = filtro.split("AND");
-
-        StringBuilder builder = new StringBuilder();
-        for (var parametro : filtros) {
-            if (builder.length() > 0)
-                builder.append("AND");
-            if (parametro.contains("idCedente") || parametro.contains("idGerenteComercial"))
-                builder.append(parametro);
-        }
-        System.out.println("\n\n");
-        System.out.println(builder.toString());
-        System.out.println(System.getProperty("user.dir"));
-    }
 }

@@ -1,7 +1,7 @@
-create database mydatabase;
+create database if not exists mydatabase;
 use mydatabase;
 
-create table usuarios(
+create table if not exists usuarios(
     id INT AUTO_INCREMENT PRIMARY KEY,
     idade int,
     nome varchar(255),

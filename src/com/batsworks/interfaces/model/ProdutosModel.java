@@ -1,6 +1,7 @@
 package com.batsworks.interfaces.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 @Data
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProdutosModel {
@@ -20,15 +21,14 @@ public class ProdutosModel {
     private String descricao;
     private BigDecimal valor;
 
-    public static UsuariosModel rowMapper(Object o) {
+    public static ProdutosModel rowMapper(ResultSet rs) {
         try {
-            if (o instanceof ResultSet) {
-                var rs = (ResultSet) o;
-                return UsuariosModel.builder().id(rs.getLong("id")).nome(rs.getString("nome"))
-                        .idade(rs.getInt("idade")).email(rs.getString("email")).adm(rs.getBoolean("adm"))
-                        .endereco(rs.getString("endereco")).senha(rs.getString("senha")).build();
-            }
-            return null;
+        	return ProdutosModel.builder()
+        			.id(rs.getLong("id"))
+        			.nome(rs.getString("nome"))
+        			.descricao(rs.getString("descricao"))
+        			.valor(rs.getBigDecimal("valor"))
+        			.build();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -104,7 +104,7 @@ public class Cadastro extends JFrame {
                 JOptionPane.showMessageDialog(null, "usuario " + inputNome.getText() + " cadastrado com sucesso!");
                 Change.toFrame(button, this, Index.class);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o usuario".concat(ex.getMessage()));
+                JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o usuario: ".concat(ex.getMessage()));
             }
         });
     }
