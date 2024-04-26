@@ -14,6 +14,7 @@ import com.batsworks.interfaces.config.database.CustomRepository;
 import com.batsworks.interfaces.model.UsuariosModel;
 import com.batsworks.interfaces.utils.Change;
 import com.batsworks.interfaces.utils.DefaultInputStyle;
+import com.batsworks.interfaces.utils.Validation;
 
 public class Index extends JFrame {
 
@@ -44,10 +45,14 @@ public class Index extends JFrame {
 				System.exit(0);
 			}
 		});
+
+		Validation.onlyLetters(inputEmail);
+//		Validation.onlyNumbers(inputSenha);
+		Validation.regexInput(inputSenha, "[^a-zA-Z]{4,8}$", lblSenha, "apenas numeros ");
 	}
 
 	private void components() {
-		inputSenha = new JTextField("senha");
+		inputSenha = new JTextField(8);
 		inputEmail = new JTextField("email");
 		btnAbout = new JButton("about");
 		lblUsuario = new JLabel("USUARIO");
@@ -99,6 +104,6 @@ public class Index extends JFrame {
 			JOptionPane.showMessageDialog(null,
 					"usuario nao existe ou não encontrado\n verificar senha e email informados!");
 		}
-		return;
 	}
+
 }
