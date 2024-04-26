@@ -45,10 +45,7 @@ public class Index extends JFrame {
 				System.exit(0);
 			}
 		});
-
-		Validation.onlyLetters(inputEmail);
-//		Validation.onlyNumbers(inputSenha);
-		Validation.regexInput(inputSenha, "[^a-zA-Z]{4,8}$", lblSenha, "apenas numeros ");
+		Validation.regexInput(inputSenha, "^(?=\\\\d{0,8}$).*", lblSenha, "apenas numeros ");
 	}
 
 	private void components() {

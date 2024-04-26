@@ -1,7 +1,9 @@
 package com.batsworks.interfaces.utils;
 
 import java.awt.event.KeyAdapter;
+
 import java.awt.event.KeyEvent;
+import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -47,16 +49,17 @@ public final class Validation {
 
 	public static void regexInput(JTextField field, String regex, JLabel label, String errorMessage) {
 		AbstractDocument document = (AbstractDocument) field.getDocument();
+		Pattern patt = Pattern.compile(regex);
 		document.setDocumentFilter(new DocumentFilter() {
 			@Override
-			public void insertString(FilterBypass fb, int offset, String text, AttributeSet attr)
-					throws BadLocationException {
-				String currentText = fb.getDocument().getText(0, fb.getDocument().getLength());
-				String newText = currentText.substring(0, offset) + text + currentText.substring(offset + offset);
-				if (newText.isEmpty() || newText.length() <= 4 || newText.matches(regex)) {
-					super.insertString(fb, offset, text, attr);
+			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+				String newText = text.substring(0, offset) + text + text.substring(offset + offset);
+				if (newText.isEmpty() || patt.matcher(newText).matches()) {
+					super.insertString(fb, offset, text, attrs);
 				}
+				System.out.println(newText);
 			}
+			
 		});
 	}
 }
