@@ -138,6 +138,7 @@ public class Usuarios extends JFrame {
 		Retornar();
 		Bring();
 		Change.controllCloseFrame(this, false);
+		
 	}
 
 	public void Bring() {

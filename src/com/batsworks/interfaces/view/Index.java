@@ -1,5 +1,6 @@
 package com.batsworks.interfaces.view;
 
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -24,6 +25,8 @@ public class Index extends JFrame {
 	JButton btnAbout;
 	JLabel lblUsuario;
 	JLabel lblSenha;
+	JLabel lblSenhaError;
+	JLabel lblEmailError;
 	JButton btnEsqueciSenha;
 	JButton btnCadastro;
 	JButton btnLogin;
@@ -45,11 +48,13 @@ public class Index extends JFrame {
 				System.exit(0);
 			}
 		});
-		Validation.regexInput(inputSenha, "^(?=\\\\d{0,8}$).*", lblSenha, "apenas numeros ");
+		Validation.regexInput(inputSenha, "\\d{3,8}", lblSenhaError, "apenas numeros ");
 	}
 
 	private void components() {
-		inputSenha = new JTextField(8);
+		lblEmailError = new JLabel("");
+		lblSenhaError = new JLabel("");
+		inputSenha = new JTextField("senha");
 		inputEmail = new JTextField("email");
 		btnAbout = new JButton("about");
 		lblUsuario = new JLabel("USUARIO");
@@ -66,6 +71,12 @@ public class Index extends JFrame {
 		getContentPane().add(inputEmail);
 		inputSenha.setBounds(107, 351, 179, 30);
 		getContentPane().add(inputSenha);
+		lblSenhaError.setBounds(320, 359, 85, 13);
+		lblSenhaError.setForeground(Color.RED);
+		getContentPane().add(lblSenhaError);
+		lblEmailError.setForeground(Color.RED);
+		lblEmailError.setBounds(320, 295, 85, 13);
+		getContentPane().add(lblEmailError);
 
 		btnAbout.setBounds(593, 11, 69, 23);
 		getContentPane().add(btnAbout);
@@ -102,5 +113,4 @@ public class Index extends JFrame {
 					"usuario nao existe ou não encontrado\n verificar senha e email informados!");
 		}
 	}
-
 }

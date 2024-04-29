@@ -1,18 +1,17 @@
 package com.batsworks.interfaces.utils;
 
-import java.awt.event.KeyAdapter;
-
-import java.awt.event.KeyEvent;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
 
 public final class Validation {
+
 	Validation() {
 		throw new IllegalStateException("Utility class");
 	}
@@ -25,41 +24,38 @@ public final class Validation {
 		}
 	}
 
-	public static void onlyNumbers(JTextField textField) {
-		textField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				if (!Character.isDigit(e.getKeyChar())) {
-					e.consume();
-				}
-			}
-		});
-	}
-
-	public static void onlyLetters(JTextField textField) {
-		textField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				if (Character.isDigit(e.getKeyChar()) || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-					e.consume();
-				}
-			}
-		});
-	}
-
 	public static void regexInput(JTextField field, String regex, JLabel label, String errorMessage) {
 		AbstractDocument document = (AbstractDocument) field.getDocument();
 		Pattern patt = Pattern.compile(regex);
-		document.setDocumentFilter(new DocumentFilter() {
+		document.addDocumentListener(new DocumentListener() {
+
 			@Override
-			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-				String newText = text.substring(0, offset) + text + text.substring(offset + offset);
-				if (newText.isEmpty() || patt.matcher(newText).matches()) {
-					super.insertString(fb, offset, text, attrs);
-				}
-				System.out.println(newText);
+			public void insertUpdate(DocumentEvent e) {
+				validateText();
 			}
-			
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				validateText();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				validateText();
+			}
+
+			private void validateText() {
+				SwingUtilities.invokeLater(() -> {
+					String text = field.getText();
+					Matcher matcher = patt.matcher(text);
+					if (!matcher.matches()) {
+						label.setText("");
+						field.setText(text.replaceAll(regex, ""));
+					} else {
+						label.setText(errorMessage);
+					}
+				});
+			}
 		});
 	}
 }

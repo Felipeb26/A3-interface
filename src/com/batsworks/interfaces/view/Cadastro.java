@@ -82,6 +82,7 @@ public class Cadastro extends JFrame {
         JLabel lblNewLabel = new JLabel("endereco");
         lblNewLabel.setBounds(397, 259, 46, 14);
         getContentPane().add(lblNewLabel);
+        
     }
 
 

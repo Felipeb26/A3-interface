@@ -17,6 +17,7 @@ public class About extends JFrame {
 		setBounds(100, 100, 701, 550);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		Change.controllCloseFrame(this, false);
@@ -49,6 +50,7 @@ public class About extends JFrame {
 		getContentPane().add(btnSair);
 
 		Change.toFrame(btnSair, this, Index.class);
+		
 	}
 
 }

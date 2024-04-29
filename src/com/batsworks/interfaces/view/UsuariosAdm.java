@@ -99,6 +99,7 @@ public class UsuariosAdm extends JFrame {
 //            table.addRow(data);
 //        });
 		Change.toFrame(btnSair, this, Eventos.class);
+		
 	}
 
 	private List<? extends JComponent> components() {

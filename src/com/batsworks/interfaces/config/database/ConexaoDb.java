@@ -39,11 +39,14 @@ public class ConexaoDb {
 				}
 			}
 		} catch (SQLException e) {
+//			var cause = e.getCause();
 			Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 			JOptionPane.showMessageDialog(null, "Não foi possivel se comunicar com o banco de dados\n"
 					+ "verifique a conexão com internet ou reinicie o dispositivo");
 			System.exit(0);
 		} catch (Exception e) {
+			System.out.println("vds");
+
 			Logger.getLogger(ConexaoDb.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.exit(0);

@@ -106,6 +106,7 @@ public class Eventos extends JFrame {
 		getContentPane().add(carrinho);
 
 		Change.toFrame(carrinho, this, Carrinho.class);
+		
 	}
 	
 	public void produtos() {

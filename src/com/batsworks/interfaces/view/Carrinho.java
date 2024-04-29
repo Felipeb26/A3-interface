@@ -69,6 +69,7 @@ public class Carrinho extends JFrame{
 		});
 
 		Retornar();
+		
 	}
 
 	public void Retornar() {
