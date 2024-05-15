@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class PreCompile {
 
+	private static final String DB_CONFIG = System.getenv("DB_PROPERTIES");
 	private static Connection connection = ConexaoDb.conecta();
 	private static final Logger log = Logger.getLogger(PreCompile.class.getName());
 
@@ -24,10 +26,12 @@ public class PreCompile {
 	private static List<File> findScripts() throws Exception {
 		List<File> files = new ArrayList<>();
 
+		String sqlType = DB_CONFIG.substring(0, DB_CONFIG.indexOf("."));
+
 		File directory = new File("src/resources");
 		if (directory.isDirectory()) {
 			for (var file : directory.listFiles()) {
-				if (file.getName().startsWith("BW")) {
+				if (file.getName().startsWith("BW") && file.getName().contains(sqlType)) {
 					files.add(file);
 				}
 			}
@@ -38,7 +42,7 @@ public class PreCompile {
 	private static String findQuerys() throws Exception {
 		String query = "";
 
-		for (var it : findScripts().stream().sorted(Comparator.comparing(File::getName)).toList()) {
+		for (var it : findScripts().stream().sorted(Comparator.comparing(File::getName)).collect(Collectors.toList())) {
 			try (BufferedReader reader = new BufferedReader(new FileReader(it))) {
 				String line;
 				while ((line = reader.readLine()) != null) {

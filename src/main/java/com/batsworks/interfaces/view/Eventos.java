@@ -16,8 +16,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.batsworks.interfaces.config.database.CustomRepository;
-import com.batsworks.interfaces.model.ProdutosModel;
+import main.com.batsworks.interfaces.config.database.CustomRepository;
+import main.com.batsworks.interfaces.model.ProdutosModel;
 import main.com.batsworks.interfaces.utils.Change;
 import java.awt.BorderLayout;
 

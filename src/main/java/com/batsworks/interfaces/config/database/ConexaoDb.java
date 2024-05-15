@@ -29,7 +29,7 @@ public class ConexaoDb {
 			if (conexao == null || conexao.isClosed()) {
 				Properties props = loadProperties();
 				String url = props.getProperty("datasource.url");
-				Class.forName(props.getProperty("driver"));
+//				Class.forName(props.getProperty("driver"));
 				conexao = DriverManager.getConnection(url, props.getProperty("username"),
 						props.getProperty("password"));
 
